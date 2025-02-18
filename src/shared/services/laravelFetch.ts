@@ -1,4 +1,4 @@
-import { Companies } from "../models/companies";
+import { Companies } from "../../models/companies";
 
 
 export class LaravelFetch {
