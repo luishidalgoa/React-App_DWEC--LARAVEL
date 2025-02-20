@@ -9,7 +9,7 @@ export interface Professor {
   fullname: string;
   age: number;
   gender: Gender;
-  adress: string;
+  address: string;
   telephone: string;
   email: string;
   password: string;
