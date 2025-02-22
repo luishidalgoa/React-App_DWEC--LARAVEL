@@ -17,5 +17,52 @@ export function getProfessor(): Promise<Professor[]> {
   return fetch(apiUrl + "/professors")
     .then((res) => res.json())
     .then((data: { data: Professor[] }) => data.data);
+}
 
+// Función para obtener los detalles de un profesor por ID (GET)
+export function getProfessorById(id: number): Promise<Professor> {
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/professors/${id}`)
+    .then((res) => res.json())
+    .then((data: { data: Professor }) => data.data);
+}
+
+// Función para crear un nuevo profesor (POST)
+export function createProfessor(professor: Professor): Promise<Professor> {
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + "/professors", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(professor),
+  })
+    .then((res) => res.json())
+    .then((data: { data: Professor }) => data.data);
+}
+
+// Función para actualizar un profesor existente (PUT)
+export function updateProfessor(id: number, professor: Professor): Promise<Professor> {
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/professors/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(professor),
+  })
+    .then((res) => res.json())
+    .then((data: { data: Professor }) => data.data);
+}
+
+// Función para eliminar un profesor (DELETE)
+export function deleteProfessor(id: number): Promise<void> {
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/professors/${id}`, {
+    method: "DELETE",
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Error al eliminar el profesor");
+    }
+  });
 }
