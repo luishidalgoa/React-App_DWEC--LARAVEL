@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import {getCompanies} from "../../shared/services/laravelFetch"
+import {deleteCompany, getCompanies} from "../../shared/services/laravelFetch"
 import type { Companies } from "../../models/companies";
+import { useNavigate } from "react-router-dom";
 
 function Companies(){
     const [companies, setCompanies] = useState<Companies[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
                 getCompanies().then((res:any) => {
                     console.log("Respuesta del backend:", res[1]);
-                    if (Array.isArray(res)) {
+                    if (loading) {
                         setCompanies(res);
-                    } else {
-                        console.error("La respuesta no es un array:", res);
+                        setLoading(false);
                     }
                 });
             } catch (err) {
@@ -27,6 +28,18 @@ function Companies(){
 
         fetchCompanies();
     }, [companies]);
+
+
+    const handleDelete = async (id:number) => {
+            if (window.confirm("¿Estás seguro de que quieres eliminar esta empresa?")) {
+                try {
+                    await deleteCompany(Number(id));
+                    setCompanies(companies.filter((companies) => companies.id !== id));
+                } catch (err) {
+                    setError("Error al eliminar la empresa");
+                }
+            }
+        };
 
     if (loading) return <div>Cargando...</div>;
     if (error) return <div>{error}</div>;
@@ -75,11 +88,7 @@ function Companies(){
                                         Editar
                                     </a>
                                     <button
-                                        onClick={() => {
-                                            if (window.confirm('Are you sure?')) {
-                                                // Aquí puedes agregar la lógica para eliminar la empresa
-                                            }
-                                        }}
+                                        onClick={() => handleDelete(company.id)}
                                         className="bg-red-500 text-white px-2 py-1 rounded"
                                     >
                                         Borrar

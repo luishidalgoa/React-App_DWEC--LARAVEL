@@ -12,6 +12,51 @@ export function getCompanies(): Promise<Companies[]> {
     .then((data: { data: Companies[] }) => data.data);
 }
 
+
+export function createCompany(company:Companies):Promise<Companies>{
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + "/companies",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(company)
+  })
+    .then((res) => res.json())
+    .then((data: { data: Companies }) => data.data);
+} 
+
+export function getCompanyById(id:number):Promise<Companies>{
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/companies/${id}`)
+    .then((res) => res.json())
+    .then((data: { data: Companies }) => data.data);
+}
+
+export function updateCompany(id:number, company:Companies):Promise<Companies>{
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/companies/${id}`,{
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(company)
+  })
+    .then((res) => res.json())
+    .then((data: { data: Companies }) => data.data);
+}
+
+export function deleteCompany(id:number):Promise<void>{
+  const apiUrl = import.meta.env.VITE_LARAVEL_API;
+  return fetch(apiUrl + `/companies/${id}`,{
+    method:"DELETE"
+  }).then((res) => {
+    if(!res.ok){
+      throw new Error("Error al eliminar la empresa");
+    }
+  });
+}
+
 export function getProfessor(): Promise<Professor[]> {
   const apiUrl = import.meta.env.VITE_LARAVEL_API;
   return fetch(apiUrl + "/professors")
@@ -42,7 +87,10 @@ export function createProfessor(professor: Professor): Promise<Professor> {
 }
 
 // Función para actualizar un profesor existente (PUT)
-export function updateProfessor(id: number, professor: Professor): Promise<Professor> {
+export function updateProfessor(
+  id: number,
+  professor: Professor
+): Promise<Professor> {
   const apiUrl = import.meta.env.VITE_LARAVEL_API;
   return fetch(apiUrl + `/professors/${id}`, {
     method: "PUT",
