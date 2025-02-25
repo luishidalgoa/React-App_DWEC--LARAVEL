@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import {deleteCompany, getCompanies} from "../../shared/services/laravelFetch"
 import type { Companies } from "../../models/companies";
-import { useNavigate } from "react-router-dom";
 
 function Companies(){
     const [companies, setCompanies] = useState<Companies[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCompanies = async () => {
