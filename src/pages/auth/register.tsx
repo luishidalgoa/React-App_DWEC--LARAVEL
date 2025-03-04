@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button';
-import Label from '../components/label'; // Importa el componente Label
-import ValidationErrors from '../components/validation-errors'; // Importa el componente ValidationErrors
-import AuthenticationCard from '../components/authentication-card'; // Importa el componente AuthenticationCard
-import AuthenticationCardLogo from '../components/authentication-card-logo'; // Importa el logo
-import Input from '../components/input'; // Importa el componente Input
-import Checkbox from '../components/checkbox'; // Importa el componente Checkbox
+import Label from '../components/label';
+import ValidationErrors from '../components/validation-errors';
+import AuthenticationCard from '../components/authentication-card';
+import AuthenticationCardLogo from '../components/authentication-card-logo';
+import Input from '../components/input';
+import Checkbox from '../components/checkbox';
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
@@ -20,11 +20,12 @@ const RegisterPage = () => {
     const [terms, setTerms] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        // Validación de los campos
         if (!name || !email || !age || !gender || !address || !telephone || !password || !passwordConfirmation || !terms) {
             setError('Por favor complete todos los campos.');
             return;
@@ -35,12 +36,10 @@ const RegisterPage = () => {
             return;
         }
 
-        setError(''); // Limpiar errores previos
+        setError('');
         setLoading(true);
 
         try {
-
-            // Enviar la solicitud POST a la API de Laravel
             const response = await fetch('http://localhost:8000/api/register', {
                 method: 'POST',
                 headers: {
@@ -61,9 +60,10 @@ const RegisterPage = () => {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Registro exitoso:', data);
-                // Redirigir al login o a la página principal después del registro exitoso
-                // Puedes usar history.push('/login') si estás usando react-router-dom
+                setSuccessMessage('Registro exitoso. Redirigiendo al inicio de sesión...');
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
             } else {
                 setError(data.message || 'Hubo un problema con el registro.');
             }
@@ -77,6 +77,7 @@ const RegisterPage = () => {
     return (
         <AuthenticationCard logo={<AuthenticationCardLogo />}>
             <ValidationErrors errors={error ? [error] : []} />
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
