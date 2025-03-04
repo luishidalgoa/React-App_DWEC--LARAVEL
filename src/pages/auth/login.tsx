@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
-import { User } from "../../models/user"; // Importa la interfaz User
 import Button from "../components/button";
 import Label from "../components/label"; // Importa el componente Label
 import ValidationErrors from "../components/validation-errors"; // Importa el componente ValidationErrors
@@ -13,7 +12,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [remember, setRemember] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]); // Cambié error a errors para manejar múltiples errores
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -31,22 +29,6 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      // Crear el objeto User que se enviará a la API
-      const user: User = {
-        id: 0, // Este valor será generado por la API
-        name: "", // Este valor no se usa en el login
-        email,
-        email_verified_at: null,
-        password,
-        remember_token: null,
-        two_factor_recovery_codes: null,
-        two_factor_secret: null,
-        profile_photo_url: null,
-        created_at: new Date(),
-        updated_at: new Date(),
-        access_token: "", // Este valor se asignará después del login
-        token_type: "bearer", // Usualmente es "bearer" para tokens JWT
-      };
 
       // Enviar la solicitud POST a la API de Laravel para iniciar sesión
       const response = await fetch("http://localhost:8000/api/login", {
