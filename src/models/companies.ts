@@ -5,7 +5,7 @@ export interface Companies {
     telephone:     string;
     email:         string;
     date_creation: Date;
-    professor:     string | null;
+    professor_id:     string | null;
     created_at:    Date;
     updated_at:    Date;
 }

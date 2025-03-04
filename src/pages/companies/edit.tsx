@@ -83,7 +83,7 @@ function EditCompany() {
                 </div>
                 <div className="mb-3">
                     <label className="block">Profesor ID</label>
-                    <input type="text" name="professor_id" className="w-full p-2 border rounded" value={formData.professor ? formData.professor : ''} onChange={handleChange} />
+                    <input type="text" name="professor_id" className="w-full p-2 border rounded" value={formData.professor_id ? formData.professor_id : ''} onChange={handleChange} />
                 </div>
                 <div className="flex gap-2">
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Actualizar</button>

@@ -1,3 +1,5 @@
+import type { Companies } from './companies';
+
 enum Gender {
   Male = "Male",
   Female = "Female",
@@ -12,5 +14,5 @@ export interface Professor {
   address: string;
   telephone: string;
   email: string;
-  password: string;
+  companies: Companies[];
 }

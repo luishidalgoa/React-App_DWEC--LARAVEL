@@ -46,7 +46,7 @@ function ShowCompany() {
                 <p><strong>Telephone:</strong> {company.telephone}</p>
                 <p><strong>Email:</strong> {company.email}</p>
                 <p><strong>Date Creation:</strong> {company.date_creation.toString()}</p>
-                <p><strong>Professor ID:</strong> {company.professor ? company.professor : "N/A"}</p>
+                <p><strong>Professor ID:</strong> {company.professor_id ? company.professor_id : "N/A"}</p>
 
                 <div className="mt-4 flex gap-2">
                     <button onClick={() => navigate("/companys")} className="bg-gray-500 text-white px-4 py-2 rounded">

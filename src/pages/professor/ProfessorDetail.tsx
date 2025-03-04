@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getProfessorById } from "../../shared/services/laravelFetch";
+import { useParams, useNavigate } from "react-router-dom";
+import { getProfessorById, deleteProfessor } from "../../shared/services/laravelFetch";
 import type { Professor } from "../../models/professor";
+
 
 function ProfessorDetail() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [professor, setProfessor] = useState<Professor | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,21 +26,46 @@ function ProfessorDetail() {
     fetchProfessor();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar este profesor?")) {
+      try {
+        await deleteProfessor(Number(id));
+        navigate("/professors");
+      } catch (err) {
+        setError("Error al eliminar el profesor");
+      }
+    }
+  };
+
   if (loading) return <div className="text-center mt-5">Cargando...</div>;
-  if (error) return <div className="text-center text-red-500">{error}</div>;
+  if (error) return <div className="text-center text-danger">{error}</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Detalles del Profesor</h1>
+    <div className="container">
+      <h1 className="mb-4">Información del profesor</h1>
       {professor && (
-        <div className="bg-white shadow-md rounded p-4">
-          <p className="mb-2"><strong>ID:</strong> {professor.id}</p>
-          <p className="mb-2"><strong>Nombre Completo:</strong> {professor.fullname}</p>
-          <p className="mb-2"><strong>Edad:</strong> {professor.age}</p>
-          <p className="mb-2"><strong>Género:</strong> {professor.gender}</p>
-          <p className="mb-2"><strong>Dirección:</strong> {professor.address}</p>
-          <p className="mb-2"><strong>Teléfono:</strong> {professor.telephone}</p>
-          <p className="mb-2"><strong>Email:</strong> {professor.email}</p>
+        <div className="card">
+          <div className="card-header bg-primary text-white">
+            <h3>{professor.fullname}</h3>
+          </div>
+          <div className="card-body">
+            <p><strong>Edad:</strong> {professor.age}</p>
+            <p><strong>Género:</strong> {professor.gender}</p>
+            <p><strong>Dirección:</strong> {professor.address}</p>
+            <p><strong>Teléfono:</strong> {professor.telephone}</p>
+            <p><strong>Email:</strong> {professor.email}</p>
+            <p><strong>Compañías:</strong></p>
+            <ul>
+              {professor.companies && professor.companies.map((company) => (
+                <li key={company.id}>{company.name}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="card-footer text-end">
+            <a href="/professors" className="btn btn-secondary">Volver a profesores</a>
+            <a href={`/professors/${professor.id}/edit`} className="btn btn-warning">Editar</a>
+            <button onClick={handleDelete} className="btn btn-danger">Borrar</button>
+          </div>
         </div>
       )}
     </div>

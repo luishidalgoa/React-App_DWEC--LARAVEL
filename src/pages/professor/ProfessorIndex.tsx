@@ -39,52 +39,56 @@ function Professors() {
   };
 
   if (loading) return <div className="text-center mt-5">Cargando...</div>;
-  if (error) return <div className="text-center text-red-500">{error}</div>;
+  if (error) return <div className="text-center text-danger">{error}</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Lista de profesores</h1>
+    <div className="container">
+      <h1 className="h1 mb-4">Lista de profesores</h1>
 
-      <a href="/professors/create" className="bg-green-500 text-white px-4 py-2 rounded mb-3 inline-block">
-        Añadir un profesor
-      </a>
+      <a href="/welcome" className="btn btn-success mb-3">Login/Registro</a>
 
-      <table className="min-w-full bg-white">
-        <thead className="bg-gray-800 text-white">
+      <div className="text-center mb-3">
+        <a href="/layouts/index" className="btn btn-primary">Volver al inicio</a>
+      </div>
+
+      <table className="table table-striped table-bordered">
+        <thead className="table-dark">
           <tr>
-            <th className="py-2 px-4 border">ID</th>
-            <th className="py-2 px-4 border">Nombre Completo</th>
-            <th className="py-2 px-4 border">Edad</th>
-            <th className="py-2 px-4 border">Género</th>
-            <th className="py-2 px-4 border">Dirección</th>
-            <th className="py-2 px-4 border">Teléfono</th>
-            <th className="py-2 px-4 border">Email</th>
-            <th className="py-2 px-4 border">Compañías</th>
-            <th className="py-2 px-4 border">Acciones</th>
+            <th>#</th>
+            <th>Nombre Completo</th>
+            <th>Edad</th>
+            <th>Género</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Compañías</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {professors.length > 0 ? (
             professors.map((professor) => (
-              <tr key={professor.id} className="border-b">
-                <td className="py-2 px-4 border">{professor.id}</td>
-                <td className="py-2 px-4 border">{professor.fullname}</td>
-                <td className="py-2 px-4 border">{professor.age}</td>
-                <td className="py-2 px-4 border">{professor.gender}</td>
-                <td className="py-2 px-4 border">{professor.address}</td>
-                <td className="py-2 px-4 border">{professor.telephone}</td>
-                <td className="py-2 px-4 border">{professor.email}</td>
-                <td className="py-2 px-4 border">{/* Aquí puedes agregar las compañías si es necesario */}</td>
-                <td className="py-2 px-4 border">
-                  <a href={`/professors/${professor.id}`} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
-                    Ver
-                  </a>
-                  <a href={`/professors/${professor.id}/edit`} className="bg-yellow-500 text-white px-2 py-1 rounded mr-2">
-                    Editar
-                  </a>
+              <tr key={professor.id}>
+                <td>{professor.id}</td>
+                <td>{professor.fullname}</td>
+                <td>{professor.age}</td>
+                <td>{professor.gender}</td>
+                <td>{professor.address}</td>
+                <td>{professor.telephone}</td>
+                <td>{professor.email}</td>
+                <td>
+                  <ul>
+                    {professor.companies && professor.companies.map((company) => (
+                      <li key={company.id}>{company.name}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <a href={`/professors/${professor.id}`} className="btn btn-info btn-sm mr-2">Ver</a>
+                  <a href={`/professors/${professor.id}/edit`} className="btn btn-warning btn-sm mr-2">Editar</a>
                   <button
                     onClick={() => handleDelete(professor.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded"
+                    className="btn btn-danger btn-sm"
                   >
                     Borrar
                   </button>
@@ -93,19 +97,11 @@ function Professors() {
             ))
           ) : (
             <tr>
-              <td colSpan={9} className="text-center py-4 border">
-                No se han encontrado profesores
-              </td>
+              <td colSpan={9} className="text-center">No se han encontrado profesores</td>
             </tr>
           )}
         </tbody>
       </table>
-
-      <div className="text-center mt-4">
-        <a href="/layouts/index" className="bg-blue-500 text-white px-4 py-2 rounded inline-block">
-          Volver al inicio
-        </a>
-      </div>
     </div>
   );
 }
