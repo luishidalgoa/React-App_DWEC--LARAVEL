@@ -47,11 +47,11 @@ function EditCompany() {
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Editar la empresa</h1>
+        <div className="container">
+            <h1 className="h1 mb-4">Editar la empresa</h1>
 
             {errors.length > 0 && (
-                <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+                <div className="alert alert-danger">
                     <ul>
                         {errors.map((error, index) => (
                             <li key={index}>{error}</li>
@@ -60,34 +60,34 @@ function EditCompany() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
-                <div className="mb-3">
-                    <label className="block">Nombre</label>
-                    <input type="text" name="name" className="w-full p-2 border rounded" value={formData.name} onChange={handleChange} required />
+            <form onSubmit={handleSubmit} className="card p-4">
+                <div className="form-group mb-3">
+                    <label className="form-label">Nombre</label>
+                    <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
                 </div>
-                <div className="mb-3">
-                    <label className="block">Dirección</label>
-                    <input type="text" name="address" className="w-full p-2 border rounded" value={formData.address} onChange={handleChange} />
+                <div className="form-group mb-3">
+                    <label className="form-label">Dirección</label>
+                    <input type="text" name="address" className="form-control" value={formData.address} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="block">Teléfono</label>
-                    <input type="text" name="telephone" className="w-full p-2 border rounded" value={formData.telephone} onChange={handleChange} />
+                <div className="form-group mb-3">
+                    <label className="form-label">Teléfono</label>
+                    <input type="text" name="telephone" className="form-control" value={formData.telephone} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="block">Correo Electrónico</label>
-                    <input type="email" name="email" className="w-full p-2 border rounded" value={formData.email} onChange={handleChange} />
+                <div className="form-group mb-3">
+                    <label className="form-label">Correo Electrónico</label>
+                    <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="block">Fecha de Creación</label>
-                    <input type="date" name="date_creation" className="w-full p-2 border rounded" value={formData.date_creation.toString()} onChange={handleChange} />
+                <div className="form-group mb-3">
+                    <label className="form-label">Fecha de Creación</label>
+                    <input type="date" name="date_creation" className="form-control" value={formData.date_creation.toString()} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="block">Profesor ID</label>
-                    <input type="text" name="professor_id" className="w-full p-2 border rounded" value={formData.professor_id ? formData.professor_id : ''} onChange={handleChange} />
+                <div className="form-group mb-3">
+                    <label className="form-label">Profesor ID</label>
+                    <input type="text" name="professor_id" className="form-control" value={formData.professor_id ? formData.professor_id : ''} onChange={handleChange} />
                 </div>
-                <div className="flex gap-2">
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Actualizar</button>
-                    <button type="button" onClick={() => navigate("/companys")} className="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+                <div className="d-flex gap-2">
+                    <button type="submit" className="btn btn-primary">Actualizar</button>
+                    <button type="button" onClick={() => navigate("/companys")} className="btn btn-secondary">Cancelar</button>
                 </div>
             </form>
         </div>

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProfessorById, deleteProfessor } from "../../shared/services/laravelFetch";
 import type { Professor } from "../../models/professor";
 
-
 function ProfessorDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ function ProfessorDetail() {
 
   return (
     <div className="container">
-      <h1 className="mb-4">Información del profesor</h1>
+      <h1 className="h1 mb-4">Información del profesor</h1>
       {professor && (
         <div className="card">
           <div className="card-header bg-primary text-white">

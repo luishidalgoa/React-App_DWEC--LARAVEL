@@ -32,30 +32,33 @@ function ShowCompany() {
         }
     };
 
-    if (error) return <p className="text-red-500">{error}</p>;
+    if (error) return <p className="text-danger">{error}</p>;
     if (!company) return <p>Cargando...</p>;
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Información de la empresa</h1>
+        <div className="container">
+            <h1 className="h1 mb-4">Información de la empresa</h1>
 
-            <div className="bg-white shadow-md rounded p-6">
-                <h3 className="text-lg font-bold bg-blue-500 text-white p-2 rounded">{company.name}</h3>
-                <p><strong>ID:</strong> {company.id}</p>
-                <p><strong>Address:</strong> {company.address}</p>
-                <p><strong>Telephone:</strong> {company.telephone}</p>
-                <p><strong>Email:</strong> {company.email}</p>
-                <p><strong>Date Creation:</strong> {company.date_creation.toString()}</p>
-                <p><strong>Professor ID:</strong> {company.professor_id ? company.professor_id : "N/A"}</p>
-
-                <div className="mt-4 flex gap-2">
-                    <button onClick={() => navigate("/companys")} className="bg-gray-500 text-white px-4 py-2 rounded">
+            <div className="card">
+                <div className="card-header bg-primary text-white">
+                    <h3>{company.name}</h3>
+                </div>
+                <div className="card-body">
+                    <p><strong>ID:</strong> {company.id}</p>
+                    <p><strong>Address:</strong> {company.address}</p>
+                    <p><strong>Telephone:</strong> {company.telephone}</p>
+                    <p><strong>Email:</strong> {company.email}</p>
+                    <p><strong>Date Creation:</strong> {company.date_creation.toString()}</p>
+                    <p><strong>Professor ID:</strong> {company.professor_id ? company.professor_id : "N/A"}</p>
+                </div>
+                <div className="card-footer text-end">
+                    <button onClick={() => navigate("/companys")} className="btn btn-secondary">
                         Volver a empresas
                     </button>
-                    <button onClick={() => navigate(`/companys/${company.id}/edit`)} className="bg-yellow-500 text-white px-4 py-2 rounded">
+                    <button onClick={() => navigate(`/companys/${company.id}/edit`)} className="btn btn-warning">
                         Editar
                     </button>
-                    <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded">
+                    <button onClick={handleDelete} className="btn btn-danger">
                         Borrar
                     </button>
                 </div>

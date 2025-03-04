@@ -46,11 +46,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </main>
-
-            {/* Footer */}
-            <footer className="bg-dark text-white text-center py-4 mt-auto">
-                <p className="mb-0">&copy; 2025 Instituto Francisco de los Ríos. Todos los derechos reservados.</p>
-            </footer>
         </div>
     );
 };

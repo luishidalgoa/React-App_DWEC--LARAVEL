@@ -15,6 +15,7 @@ import LoginPage from "./pages/auth/login";
 import Dashboard from "./pages/dashboard";
 import ForgotPassword from "./pages/auth/forgot-password";
 import NavigationMenu from "./pages/navigation-menu";
+import Edit from "./pages/notes/edit";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/navigation-menu" element={<NavigationMenu />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/notes/edit" element={<Edit />} />
           </Routes>
         </div>
         <Footer />
