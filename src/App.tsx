@@ -16,6 +16,7 @@ import Dashboard from "./pages/dashboard";
 import ForgotPassword from "./pages/auth/forgot-password";
 import NavigationMenu from "./pages/navigation-menu";
 import Edit from "./pages/notes/edit";
+import ProfilePage from "./pages/profile/show";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/navigation-menu" element={<NavigationMenu />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/notes/edit" element={<Edit />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
         <Footer />

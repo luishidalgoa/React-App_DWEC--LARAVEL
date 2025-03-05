@@ -98,6 +98,9 @@ const NavigationMenu: React.FC = () => {
                                 }
                                 content={
                                     <>
+                                      <DropdownLink href="/dashboard">
+                                            Dashboard
+                                        </DropdownLink>
                                         <DropdownLink href="/profile">
                                             Perfil
                                         </DropdownLink>
